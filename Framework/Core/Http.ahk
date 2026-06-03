@@ -21,9 +21,21 @@ class DM_Http {
     static CacheDir() => DM_Http.FrameworkRoot() "\.remote"
     static StateFile() => DM_Http.CacheDir() "\.http-state.ini"
 
+    static Token() {
+        t := EnvGet("DEEP_MACROS_GH_TOKEN")
+        return t != "" ? t : EnvGet("GITHUB_TOKEN")
+    }
+
+    static HasAuth() => DM_Http.Token() != ""
+
+    static ApiContentsUrl(rel) {
+        path := "Framework/" StrReplace(rel, "\", "/")
+        return "https://api.github.com/repos/" DM_Http.Repo "/contents/" path "?ref=" DM_Http.Branch
+    }
+
     static Ensure(force := false) {
         global DM_FW_LOADED
-        if (DM_FW_LOADED && !force)
+        if (IsSet(DM_FW_LOADED) && DM_FW_LOADED && !force)
             return true
 
         cache := DM_Http.CacheDir()
@@ -68,11 +80,21 @@ class DM_Http {
 
     static FetchRemoteVersion() {
         try {
-            body := DM_Http.Get(DM_Http.RawBase "/version.ini")
-            if RegExMatch(body, "Version=([^\r\n]+)", &m)
-                return Trim(m[1])
+            return DM_Http._ParseVersion(DM_Http.Get(DM_Http.RawBase "/version.ini"))
         } catch {
+            if !DM_Http.HasAuth()
+                return "0.0.0"
+            try
+                return DM_Http._ParseVersion(DM_Http.Get(DM_Http.ApiContentsUrl("version.ini"),
+                    "Accept: application/vnd.github.raw`nAuthorization: Bearer " DM_Http.Token()))
+            catch
+                return "0.0.0"
         }
+    }
+
+    static _ParseVersion(body) {
+        if RegExMatch(body, "Version=([^\r\n]+)", &m)
+            return Trim(m[1])
         return "0.0.0"
     }
 
@@ -80,11 +102,10 @@ class DM_Http {
         ok := 0
         fail := 0
         for rel in DM_Http.ManifestRemote {
-            url := DM_Http.RawBase "/" StrReplace(rel, "\", "/")
             dest := cache "\" rel
             DM_Utils_EnsureDir(DM_Utils_PathParent(dest))
             try {
-                DM_Http.Download(url, dest)
+                DM_Http.DownloadFile(rel, dest)
                 ok++
             } catch {
                 fail++
@@ -126,6 +147,23 @@ class DM_Http {
 
     static Download(url, dest) {
         body := DM_Http.Get(url)
+        f := FileOpen(dest, "w", "UTF-8")
+        f.Write(body)
+        f.Close()
+    }
+
+    ; Repo privado: raw falla → API de GitHub con token (DEEP_MACROS_GH_TOKEN)
+    static DownloadFile(rel, dest) {
+        url := DM_Http.RawBase "/" StrReplace(rel, "\", "/")
+        try {
+            DM_Http.Download(url, dest)
+            return
+        } catch {
+            if !DM_Http.HasAuth()
+                throw
+        }
+        body := DM_Http.Get(DM_Http.ApiContentsUrl(rel),
+            "Accept: application/vnd.github.raw`nAuthorization: Bearer " DM_Http.Token())
         f := FileOpen(dest, "w", "UTF-8")
         f.Write(body)
         f.Close()

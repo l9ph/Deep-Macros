@@ -2,7 +2,11 @@
 
 Las macros **no llevan el framework completo**: al arrancar hacen **peticiones HTTPS** a GitHub, guardan una copia en caché y la cargan. Sensación de app sin `.exe`.
 
-**Origen remoto:** `https://raw.githubusercontent.com/l9ph/Deep-Macros/main/Framework/`
+**Origen remoto:** `https://github.com/l9ph/Deep-Macros/tree/main/Framework`
+
+> **Repo privado:** `raw.githubusercontent.com` no funciona sin token. Define:
+> `DEEP_MACROS_GH_TOKEN` con un [PAT de GitHub](https://github.com/settings/tokens) (scope `repo`) o ejecuta antes:
+> `$env:DEEP_MACROS_GH_TOKEN = gh auth token`
 
 ---
 
