@@ -1,8 +1,7 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-; Carga el framework por HTTPS desde GitHub (caché en Framework\.remote)
-#Include ..\Framework\HttpBoot.ahk
+#Include Framework\DeepMacros.ahk
 
 scriptDir := A_ScriptDir
 configPath := scriptDir "\Config"
@@ -12,14 +11,7 @@ enabled := IniRead(configPath, "General", "Enabled", "1")
 if (enabled != "1")
     ExitApp()
 
-; F10 = panel de configuración
 F10:: ShowAssasinationSettings()
-
-; Ctrl+Shift+F = forzar actualización del framework por HTTPS
-^+F:: {
-    DM_Http.Ensure(true)
-    Reload
-}
 
 ShowAssasinationSettings() {
     static app := ""
@@ -34,7 +26,7 @@ ShowAssasinationSettings() {
 
 Assasination_BuildUI(app, configPath) {
     DM_Components.Title(app, "Assasination Dash")
-    DM_Components.Muted(app, "Framework " DM_Version() " · HTTPS · " DM_Root(), "y88")
+    DM_Components.Muted(app, "v" DM_Version(), "y88")
     app._enabled := DM_Components.Checkbox(app, "Macro activa",
         DM_Utils_Ini(configPath, "General", "Enabled", "1") = "1", "y120")
 }

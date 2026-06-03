@@ -1,19 +1,12 @@
 # Deep-Macros
 
-Macros **AutoHotkey v2** con framework UI cargado por **HTTPS desde GitHub**.
+Macros **AutoHotkey v2**. Cada macro lleva su propia copia de `Framework/`.
 
-## Macro típica
-
-```ahk
-#Include ..\Framework\HttpBoot.ahk
-```
-
-Descarga/actualiza desde `https://github.com/l9ph/Deep-Macros` → caché en `Framework\.remote\`.
-
-## Carpetas de macros
+## Estructura
 
 ```
 NombreCarpeta/
+├── Framework/              UI compartida (local)
 ├── NombreSimplificado_Macro.ahk
 ├── Config
 └── imgs/
@@ -25,4 +18,8 @@ NombreCarpeta/
 | Auto Math | `AutoMath_Macro.ahk` |
 | Mouse Buttons | `MouseButtons_Macro.ahk` |
 
-Documentación del framework: [Framework/README.md](Framework/README.md)
+```ahk
+#Include Framework\DeepMacros.ahk
+```
+
+`Config` = INI. Imágenes en `imgs/`.
