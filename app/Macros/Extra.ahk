@@ -62,23 +62,8 @@ Extra_BuildUI(Tab, Win) {
     Tab.CreateHint("Version: " DM_AppVersion())
 
     Tab.CreateSection("Bootstrap (test)")
-    Tab.CreateHint("Bootstrap OK 1.8.1 — si ves esto, el sync desde GitHub funcionó.")
-    Tab.CreateButton({
-        Name: "Forzar actualización (test)",
-        Callback: Extra_TestBootstrap
-    })
-}
-
-Extra_TestBootstrap(*) {
-    r := DM_Bootstrap_CheckNow(true)
-    if (r["error"] != "") {
-        MsgBox("Error:`n" r["error"], "Bootstrap test", "Icon!")
-        return
-    }
-    if r["updated"]
-        MsgBox("Descargado v" r["remote"] ". Reinicia DMacros para aplicar.", "Bootstrap test", "Iconi")
-    else
-        MsgBox("Local v" r["local"] " · Remoto v" r["remote"] " — ya al día.", "Bootstrap test", "Iconi")
+    Tab.CreateHint("Si ves el botón de abajo, el sync desde GitHub funcionó.")
+    Tab.CreateButton({ Name: "✓ Bootstrap OK · v1.8.1" })
 }
 
 Extra_LoadConfigValues(configPath) {
