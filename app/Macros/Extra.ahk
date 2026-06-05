@@ -60,10 +60,6 @@ Extra_BuildUI(Tab, Win) {
     }))
 
     Tab.CreateHint("Version: " DM_AppVersion())
-
-    Tab.CreateSection("Bootstrap (test)")
-    Tab.CreateHint("Si ves el botón de abajo, el sync desde GitHub funcionó.")
-    Tab.CreateButton({ Name: "✓ Bootstrap OK · v1.8.1" })
 }
 
 Extra_LoadConfigValues(configPath) {
