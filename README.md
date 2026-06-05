@@ -1,25 +1,33 @@
-# Deep-Macros
+# DMacros
 
-Macros **AutoHotkey v2**. Cada macro lleva su propia copia de `Framework/`.
+Unified AutoHotkey v2 macro suite.
 
-## Estructura
+## Layout
 
 ```
-NombreCarpeta/
-├── Framework/              UI compartida (local)
-├── NombreSimplificado_Macro.ahk
-├── Config
-└── imgs/
+DM/
+├── DMacros.ahk          ← run this
+└── app/
+    ├── Config
+    ├── Framework/
+    ├── imgs/
+    └── Macros/
+        └── Automatics/
+            └── AutoFlowState.ahk
 ```
 
-| Carpeta | Macro |
-|---------|-------|
-| Assasination Dash | `AssasinationDash_Macro.ahk` |
-| Auto Math | `AutoMath_Macro.ahk` |
-| Mouse Buttons | `MouseButtons_Macro.ahk` |
+## Usage
 
-```ahk
-#Include Framework\DeepMacros.ahk
-```
+1. Run `DMacros.ahk`.
+2. Tray → **Open DMacros** to show settings.
+3. **Hide** minimizes to tray (script keeps running).
+4. **✕** exits AutoHotkey.
+5. **Save** writes `app/Config`.
 
-`Config` = INI. Imágenes en `imgs/`.
+## Config (`app/Config`)
+
+| Section | Keys |
+|---------|------|
+| `App` | `ShowUIOnStart` |
+| `System` | `ScreenWidth`, `ScreenHeight`, `MouseDpi`, `WinMouseSpeed`, `RobloxSensitivity` |
+| `AssassinationDash`, `AutoFlowState`, `MouseButtons` | `Enabled` |
