@@ -28,6 +28,6 @@ DM/
 
 | Section | Keys |
 |---------|------|
-| `App` | `ShowUIOnStart` |
+| `App` | `ShowUIOnStart` (las actualizaciones se comprueban siempre al iniciar) |
 | `System` | `ScreenWidth`, `ScreenHeight`, `MouseDpi`, `WinMouseSpeed`, `RobloxSensitivity` |
 | `AssassinationDash`, `AutoFlowState`, `MouseButtons` | `Enabled` |

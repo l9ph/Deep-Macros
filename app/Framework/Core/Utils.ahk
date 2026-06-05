@@ -23,6 +23,21 @@ DM_Utils_IniWrite(path, section, key, value) {
     IniWrite value, path, section, key
 }
 
+DM_Utils_VersionCompare(a, b) {
+    pa := StrSplit(a, ".")
+    pb := StrSplit(b, ".")
+    n := Max(pa.Length, pb.Length)
+    loop n {
+        va := A_Index <= pa.Length ? Integer(pa[A_Index]) : 0
+        vb := A_Index <= pb.Length ? Integer(pb[A_Index]) : 0
+        if (va > vb)
+            return 1
+        if (va < vb)
+            return -1
+    }
+    return 0
+}
+
 DM_Utils_Clamp(n, min, max) {
     if (n < min)
         return min

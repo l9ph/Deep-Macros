@@ -1,0 +1,24 @@
+; Legacy: usar app/Sync/fallback-manifest.txt (bootstrap sincroniza todo el repo).
+; Rutas relativas a app/Framework:
+DeepMacros.ahk
+version.ini
+Core\Bootstrap.ahk
+Core\Http.ahk
+Core\Utils.ahk
+Core\Theme.ahk
+Core\BindCapture.ahk
+Core\MacroRuntime.ahk
+UI\Rayfield.ahk
+UI\DM_WebApp.ahk
+UI\Components.ahk
+UI\Dialogs.ahk
+UI\AppWindow.ahk
+UI\Anim.ahk
+UI\ComVar.ahk
+UI\Promise.ahk
+UI\WebView2\WebView2.ahk
+UI\assets\dm-rayfield.html
+UI\assets\logo.png
+UI\assets\icon.png
+UI\WebView2\32bit\WebView2Loader.dll
+UI\WebView2\64bit\WebView2Loader.dll

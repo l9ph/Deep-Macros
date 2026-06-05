@@ -1,16 +1,18 @@
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 
-global DM_AppRoot := A_ScriptDir "\app"
+global DM_InstallRoot := A_ScriptDir
+global DM_AppRoot := DM_InstallRoot "\app"
 global DM_ConfigPath := DM_AppRoot "\Config"
 
+#Include app\Framework\BootstrapEntry.ahk
 #Include app\Framework\DeepMacros.ahk
 #Include app\Macros\Assassination.ahk
 #Include app\Macros\Automatics.ahk
 #Include app\Macros\MouseButtons.ahk
 #Include app\Macros\Extra.ahk
 
-DM_AppVersion() => "0.1"
+DM_AppVersion() => DM_Bootstrap_AppVersion()
 
 ShowDMacrosSettings() {
     global DM_ActiveApp, Rayfield, DM_ConfigPath, DM_AppRoot
